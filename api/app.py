@@ -2,12 +2,12 @@ import os
 import sys
 from flask import Flask, render_template, request, jsonify
 
-# Add the root directory to the Python path so that analysis.py can be imported.
+# Add the repository root to sys.path so that analysis.py and gemini_ai.py can be found.
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from analysis import analyze_user  # Now analysis.py in the root can be found
+from analysis import analyze_user  # analysis.py now properly imported
 
-# Define the base directory and correctly locate the templates and static folders.
+# Define absolute paths for templates and static folders.
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 templates_dir = os.path.join(BASE_DIR, "templates")
 static_dir = os.path.join(BASE_DIR, "static")
