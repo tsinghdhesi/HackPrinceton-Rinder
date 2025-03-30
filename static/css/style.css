@@ -1,0 +1,98 @@
+/* static/css/style.css */
+
+/* General Page Styling */
+body {
+    background-color: #1a1a1b; /* Dark background */
+    color: #d7dadc;           /* Light gray text */
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Main Container */
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  /* Heading Styling */
+  h1 {
+    color: #ff4500; /* Reddit orange */
+    text-align: center;
+    margin-top: 20px;
+    animation: fadeIn 2s ease-in-out;
+  }
+  
+  /* Input Field Styling */
+  input[type="text"] {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin: 20px 0;
+    border: 1px solid #555;
+    border-radius: 4px;
+    background-color: #2c2c2d;
+    color: #d7dadc;
+    font-size: 16px;
+  }
+  
+  /* Button Styling */
+  button {
+    background-color: #ff4500;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  button:hover {
+    background-color: #e03d00;
+    transform: scale(1.05);
+  }
+  
+  /* Results Container */
+  #results {
+    margin-top: 20px;
+    animation: fadeIn 1s ease-in-out;
+  }
+  
+  /* Individual Result Boxes */
+  .result {
+    background-color: #2c2c2d;
+    border-left: 5px solid #ff4500;
+    margin: 15px 0;
+    padding: 15px;
+    border-radius: 4px;
+    opacity: 0;
+    animation: slideIn 0.5s forwards;
+  }
+  
+  /* Stagger the animation for each result */
+  .result:nth-child(1) { animation-delay: 0.2s; }
+  .result:nth-child(2) { animation-delay: 0.4s; }
+  .result:nth-child(3) { animation-delay: 0.6s; }
+  
+  /* Keyframes for Animations */
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 600px) {
+    h1 {
+      font-size: 24px;
+    }
+    button {
+      width: 100%;
+    }
+  }
+  

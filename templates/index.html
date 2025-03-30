@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Analyze Reddit User</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <h1>Analyze Reddit User</h1>
+  <input type="text" id="usernameInput" placeholder="Enter Reddit Username">
+  <button onclick="submitUsername()">Analyze</button>
+  <div id="results"></div>
+
+  <script>
+    function submitUsername() {
+      const username = document.getElementById('usernameInput').value;
+      if (!username) {
+        alert('Please enter a username');
+        return;
+      }
+      
+      fetch('/analyze', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username: username })
+      })
+      .then(response => response.json())
+      .then(data => {
+        const resultsDiv = document.getElementById('results');
+        resultsDiv.innerHTML = ''; // Clear previous results
+        data.forEach((item, index) => {
+          const itemDiv = document.createElement('div');
+          itemDiv.classList.add('result');
+          itemDiv.innerHTML = `
+            <strong>Match ${index + 1}</strong><br>
+            Username: ${item[0]}<br>
+            Compatibility Score: ${item[1]}<br>
+            Relationship Type: ${item[2]['relationship_type'] || 'N/A'}<br>
+            Explanation: ${item[2]['compatibility_summary'] || 'N/A'}<br>
+          `;
+          resultsDiv.appendChild(itemDiv);
+        });
+      })
+      .catch(error => console.error('Error:', error));
+    }
+  </script>
+</body>
+</html>
