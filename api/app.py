@@ -1,7 +1,18 @@
+import os
+import sys
 from flask import Flask, render_template, request, jsonify
-from analysis import analyze_user
 
-app = Flask(__name__, template_folder="../templates", static_folder="../static")
+# Add the root directory to the Python path so that analysis.py can be imported.
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+from analysis import analyze_user  # Now analysis.py in the root can be found
+
+# Define the base directory and correctly locate the templates and static folders.
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+templates_dir = os.path.join(BASE_DIR, "templates")
+static_dir = os.path.join(BASE_DIR, "static")
+
+app = Flask(__name__, template_folder=templates_dir, static_folder=static_dir)
 
 @app.route('/')
 def home():
