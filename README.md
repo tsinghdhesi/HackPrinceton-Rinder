@@ -10,7 +10,9 @@ Rinder is a mobile app designed to help Reddit users find their most compatible 
 
 ## Features
 
-* Reddit User Analysis: Scrapes Reddit data, including posts, comments, upvotes, and downvotes.
+* Reddit User Analysis: Scrapes Reddit data, including posts and comments.
+
+* Generates a list of likey subreddits that the user is or may be interested in.
 
 * Similarity Scoring: Cross-references user activity and assigns a similarity score to potential matches.
 
@@ -18,11 +20,11 @@ Rinder is a mobile app designed to help Reddit users find their most compatible 
 
 * AI-Powered Explanations: Uses [Gemini](https://gemini.google.com/app) to conduct sentimental analysis and to describe why each match is a good fit.
 
-* Mobile-Friendly UI: Developed with [Expo](https://expo.dev) for a seamless user experience.
+* Mobile-Friendly UI: Developed with [Flask](https://flask.palletsprojects.com/) for a seamless user experience.
 
  ## Tech Stack
 
-* Frontend: [Expo](https://expo.dev) (React Native framework for mobile development)
+* Frontend: [Flask](https://flask.palletsprojects.com/)  (HTML and CSS for website integration)
 
 * Backend: Python (for data processing and analysis)
 
@@ -36,9 +38,7 @@ Rinder is a mobile app designed to help Reddit users find their most compatible 
 
 Ensure you have the following installed:
 
-* [Node.js](https://nodejs.org/en)
-
-* [Expo CLI](https://docs.expo.dev/get-started/create-a-project/)
+* [Flask](https://flask.palletsprojects.com/)
 
 * Python
 
@@ -47,33 +47,20 @@ Ensure you have the following installed:
 1. Clone the repository
 
 ```sh
-git clone https://github.com/yourusername/rinder.git
-cd rinder
+git clone https://github.com/yourusername/hackprinceton-rinder.git
+cd hackprinceton-rinder
 ```
 
 2. Install frontend dependencies
 
 ```sh
-cd frontend
-npm install
+Flask
+praw
+gemini_ai
+
 ```
 
-3. Run the Expo server
-
-```sh
-npm start
-```
-
-4. Set up the backend
-
-```sh
-cd ../backend
-python -m venv venv
-source venv/bin/activate  # On Windows use `venv\Scripts\activate`
-pip install -r requirements.txt
-```
-
-5. Run the backend server
+3. Run the server
 
 ```sh
 python app.py
