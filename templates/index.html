@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Analyze Reddit User</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <style>
+    .loader {
+      border: 5px solid #f3f3f3;
+      border-top: 5px solid #3498db;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      animation: spin 2s linear infinite;
+      margin: 20px auto;
+      display: none;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <h1>Analyze Reddit User</h1>
+  <input type="text" id="usernameInput" placeholder="Enter Reddit Username">
+  <button id="analyzeButton" onclick="submitUsername()">Analyze</button>
+  <div id="loader" class="loader"></div>
+  <div id="results"></div>
+
+  <script>
+    function submitUsername() {
+      const username = document.getElementById('usernameInput').value;
+      if (!username) {
+        alert('Please enter a username');
+        return;
+      }
+      
+      // Show loading indicator
+      const loader = document.getElementById('loader');
+      loader.style.display = 'block';
+      
+      // Clear previous results
+      const resultsDiv = document.getElementById('results');
+      resultsDiv.innerHTML = '';
+      
+      // Disable the button while loading
+      const button = document.getElementById('analyzeButton');
+      button.disabled = true;
+      
+      fetch('/analyze', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username: username })
+      })
+      .then(response => response.json())
+      .then(data => {
+        // Hide loading indicator
+        loader.style.display = 'none';
+        
+        // Re-enable the button
+        button.disabled = false;
+        
+        data.forEach((item, index) => {
+          const itemDiv = document.createElement('div');
+          itemDiv.classList.add('result');
+          itemDiv.innerHTML = `
+            <strong>Match ${index + 1}</strong><br>
+            Username: ${item[0]}<br>
+            Compatibility Score: ${item[1]}<br>
+            Relationship Type: ${item[2]['relationship_type'] || 'N/A'}<br>
+            Explanation: ${item[2]['compatibility_summary'] || 'N/A'}<br>
+          `;
+          resultsDiv.appendChild(itemDiv);
+        });
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        
+        // Hide loading indicator and re-enable button on error
+        loader.style.display = 'none';
+        button.disabled = false;
+        
+        // Display error message
+        resultsDiv.innerHTML = '<div class="error">Failed to analyze username. Please try again later.</div>';
+      });
+    }
+  </script>
+</body>
+</html>
