@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 from analysis import analyze_user
-#Ok_clothes_5553
-# Tell Flask where the templates and static files are
+
 app = Flask(__name__, template_folder="../templates", static_folder="../static")
 
 @app.route('/')
@@ -18,5 +17,6 @@ def analyze():
     top_matches = analyze_user(username)
     return jsonify(top_matches)
 
+# Only run locally
 if __name__ == '__main__':
     app.run(debug=True)
